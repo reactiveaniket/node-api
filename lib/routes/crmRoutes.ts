@@ -13,18 +13,35 @@ export class Routes {
                 message: 'GET request successfulll!!!!'
             })
         })
+
+        app.route('/users')
+        
+        .get((req: Request, res: Response, next: NextFunction) => {
+            // middleware
+            console.log(`Request from: ${req.originalUrl}`);
+            console.log(`Request type: ${req.method}`); 
+            // req.query.key='78942ef2c1c98bf10fca09c808d718fa3734703e'           
+            // if(req.query.key !== '78942ef2c1c98bf10fca09c808d718fa3734703e'){
+            //     res.status(401).send('You shall not pass!');
+            // } else {
+            //     next();
+            // }        
+            next();                
+        }, this.contactController.getUsers)  
         
         // Contact 
         app.route('/contact')
         .get((req: Request, res: Response, next: NextFunction) => {
             // middleware
             console.log(`Request from: ${req.originalUrl}`);
-            console.log(`Request type: ${req.method}`);            
-            if(req.query.key !== '78942ef2c1c98bf10fca09c808d718fa3734703e'){
-                res.status(401).send('You shall not pass!');
-            } else {
-                next();
-            }                        
+            console.log(`Request type: ${req.method}`); 
+            // req.query.key='78942ef2c1c98bf10fca09c808d718fa3734703e'           
+            // if(req.query.key !== '78942ef2c1c98bf10fca09c808d718fa3734703e'){
+            //     res.status(401).send('You shall not pass!');
+            // } else {
+            //     next();
+            // }   
+            next();                     
         }, this.contactController.getContacts)        
 
         // POST endpoint
@@ -33,6 +50,7 @@ export class Routes {
         // Contact detail
         app.route('/contact/:contactId')
         // get specific contact
+        
         .get(this.contactController.getContactWithID)
         .put(this.contactController.updateContact)
         .delete(this.contactController.deleteContact)

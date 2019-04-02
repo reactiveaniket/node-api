@@ -1,8 +1,10 @@
 import * as mongoose from 'mongoose';
 import { ContactSchema } from '../models/crmModel';
+import { userSchema } from '../models/usermodel';
 import { Request, Response } from 'express';
+const Users = mongoose.model('allusers', userSchema);
+const Contact = mongoose.model('contacts', ContactSchema);
 
-const Contact = mongoose.model('Contact', ContactSchema);
 
 export class ContactController{
 
@@ -23,6 +25,15 @@ export class ContactController{
                 res.send(err);
             }
             res.json(contact);
+        });
+    }
+
+    public getUsers (req: Request, res: Response) {           
+        Users.find({} , (err, user) => {
+            if(err){
+                res.send(err);
+            }
+            res.json(user);            
         });
     }
 
